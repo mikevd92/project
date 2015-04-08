@@ -1,0 +1,9 @@
+{
+    "elements": {
+        "map-chart": {},
+        "scatter-chart": {},
+        "legend-chart": {},
+        "donut-chart": {}
+    },
+    "attributes": {}
+}

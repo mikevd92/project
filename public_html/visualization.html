@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="js/angular.min.js" charset="utf-8"></script> 
+        <script src="js/d3.js" charset="utf-8"></script> 
+        <script src="js/queue.js"></script>
+        <script src="js/web.js"></script>
+        <script src="js/fisheye.js" charset="utf-8"></script>
+        <style>
+            path{
+                stroke: white;
+                stroke-width: 4px;
+            }
+            path.map{
+                stroke: black;
+                stroke-width: 1px;
+            }
+            text{
+                font-family: Helvetica;
+                font-size: 1.4em;
+            }
+            .text{
+                font-family: Helvetica;
+                font-size: 1.4em;
+            }
+            article{
+                padding:1em;	
+            }
+            .form{
+                font-size: 30px;
+            }
+            .innerTable{
+                padding-left: 50px;
+            }
+            table.center {
+                margin-left:700px; 
+                margin-right:auto;
+            }
+            .centered{
+                text-align: center;
+            }
+        </style>
+
+    </head>
+    <body ng-app="myApp" ng-controller="MainCtrl" width="9000px">
+        <h1 style="margin-left:auto;margin-right:auto;width:10%">Statistics app</h1>
+        <table style="float:left;width:5%;margin-top:200px;margin-left:300px">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td><p class="form">Choose region:</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><select  class="text" ng-options="o.name for o in optionsCity" ng-change="selectCity()" ng-model="city" ></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p/>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p class="form"> Select range:</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><select class="text" data-ng-options="o.name for o in options" ng-change="selectAgeGroups();
+                                                                                                selectRange()" data-ng-model="option"></select></td>	
+                                    </tr>
+                                    <tr>
+                                        <td><p class="form"> Select map statistic:</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><select  class="text" ng-options="o.name for o in optionsMap" ng-model="citiesData" ></select></td>
+                                    </tr> 
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                <td>
+            </tr>
+        </table>
+        <table style="float:left;width:20%;margin-top:100px">
+            <tr>
+                <td><map-chart datacities="citiesData" region="blueRegion" mapdata="mapData" ></map-chart></td>
+            </tr> 
+        </table>
+<table style="float:left;margin-top:100px;">
+    <tr>
+        <td id="cool">
+            <table>
+                <tr>
+                    <td>
+                        <donut-chart h="300" w="300" data="bigData"></donut-chart>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="cool1" style="-webkit-column-width: 350px; -webkit-column-height: 300px">
+                        <legend-chart data="bigLegend"></legend-chart>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table> 
+<table style="margin-left:300px">
+    <tr>
+        <td ng-click="displayAge()" style="-webkit-column-width: 350px; -webkit-column-height: 300px"><donut-chart w="200" h="200" data="donutDataAge"></donut-chart></td>
+        <td ng-click="displayForeigner()" style="-webkit-column-width: 350px; -webkit-column-height: 300px"><donut-chart w="200" h="200" data="donutDataForeigner"></donut-chart></td> 	
+        <td ng-click="displayHouse()" style="-webkit-column-width: 350px; -webkit-column-height: 300px"><donut-chart w="200" h="200" data="donutDataHouse"></donut-chart></td>
+        <td ng-click="displayMarital()" style="-webkit-column-width: 350px; -webkit-column-height: 300px"><donut-chart w="200" h="200" data="donutDataMarital"></donut-chart></td> 
+    </tr>
+</table>
+<h1 style="margin-left:auto;margin-right:auto;width:10%">Scatter plot</h1>	
+</br>
+</br>
+<table style="margin-left:auto;margin-right:auto;width:80%">
+    <tr>
+        <td>
+            <label style="font-size: 30px;" for="male">select X coordinate : </label>
+            <select class="text" ng-options="o.name for o in optionsScatter" ng-change="changeScatter()" ng-model="optionScatter1" ></select>
+            &nbsp;&nbsp;&nbsp;
+            <label style="font-size: 30px;" for="male">select Y coordinate : </label>
+            <select class="text" ng-options="o.name for o in optionsScatter" ng-change="changeScatter()" ng-model="optionScatter2" ></select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p></p>
+        </td>
+    </tr>
+</table>
+</br>
+</br>
+<table>
+    <tr>
+        <td><scatter-chart data="scatterData"></scatter-chart></td>
+</tr>  
+</table>
+</html>
