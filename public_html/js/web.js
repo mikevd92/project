@@ -109,7 +109,7 @@ var link = function donutLink()
                                 x = c[0],
                                 y = c[1],
                                 // pythagorean theorem for hypotenuse
-                                h = Math.sqrt(x * (x + 10) + y * (y + 10));
+                                h = Math.sqrt(x * (x+ 10) + y *y);
                         return "translate(" + (x / h * labelr) + ',' +
                                 (y / h * labelr) + ")";
                     })
