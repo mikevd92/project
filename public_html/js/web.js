@@ -151,7 +151,7 @@ var legend = function legendLink()
 
         var rects = rect_group.selectAll("rect");
         var texts = label_group.selectAll("text");
-        var loaded = false;
+
         scope.$watch('data', function (data) {
             if (!data) {
                 return;
@@ -167,31 +167,30 @@ var legend = function legendLink()
 
             rects.exit().remove();
             texts.exit().remove();
-            if (loaded === false) {
-                rects.enter().append("rect")
-                        .attr("x", width - 18)
-                        .attr("width", 21)
-                        .attr("height", 30)
-                        .style("fill", function (d, i) {
-                            return color(i);
-                        })
-                        .attr("transform", function (d, i) {
-                            return "translate(0," + i * 20 + ")";
-                        });
 
-                texts.enter().append("text")
-                        .attr("x", width)
-                        .attr("y", 9)
-                        .attr("dy", ".35em")
-                        .style("text-anchor", "end")
-                        .text(function (d) {
-                            return d;
-                        })
-                        .attr("transform", function (d, i) {
-                            return "translate(0," + i * 20 + ")";
-                        });
-                loaded = true;
-            }
+            rects.enter().append("rect")
+                    .attr("x", width - 18)
+                    .attr("width", 21)
+                    .attr("height", 30)
+                    .style("fill", function (d, i) {
+                        return color(i);
+                    })
+                    .attr("transform", function (d, i) {
+                        return "translate(0," + i * 20 + ")";
+                    });
+
+            texts.enter().append("text")
+                    .attr("x", width)
+                    .attr("y", 9)
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "end")
+                    .text(function (d) {
+                        return d;
+                    })
+                    .attr("transform", function (d, i) {
+                        return "translate(0," + i * 20 + ")";
+                    });
+
             rects.attr("x", width - 18)
                     .attr("width", 21)
                     .attr("height", 30)
