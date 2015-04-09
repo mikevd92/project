@@ -140,7 +140,7 @@ var legend = function legendLink()
         height = 400;
 
         var color = d3.scale.category20();
-        var svg = d3.select(el[0]).append('svg');
+        var svg = d3.select(el[0]).append('svg').attr("id","legend");
 
         // group for rects
         var rect_group = svg.append('g')
@@ -774,8 +774,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
 
         $scope.bigData = $scope.donutDataAge;
         $scope.bigLegend = $scope.legendDataAge;
-        option = "age";
-
+        option = "age";  
     };
     $scope.displayForeigner = function () {
 
@@ -804,7 +803,9 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
                 $scope.bigData = $scope.donutDataAge;
                 $scope.bigLegend = $scope.legendDataAge;
             }
-
+        //d3.select("#legend").attr("height",280);
+        //console.log(document.getElementById("legend").style.height+"in small");
+        document.getElementById("cool").style.height="280px";
         } else if ($scope.option.name === 'large') {
             $scope.donutDataAge = percentageData65[index];
             $scope.legendDataAge = range65;
@@ -813,6 +814,9 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
                 $scope.bigLegend = $scope.legendDataAge;
             }
         }
+       // d3.select("#legend").attr("height",100);
+        //console.log(document.getElementById("legend").style.height+"in large");
+        //document.getElementById("cool").style.height="100px";
     }
 
     myFactory.await(function (err, mapData, data) {
