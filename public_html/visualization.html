@@ -40,7 +40,6 @@
                 text-align: center;
             }
         </style>
-
     </head>
     <body ng-app="myApp" ng-controller="MainCtrl" width="9000px">
         <h1 style="margin-left:auto;margin-right:auto;width:10%">Statistics app</h1>
@@ -87,10 +86,14 @@
                 <td><map-chart datacities="citiesData" region="blueRegion" mapdata="mapData" ></map-chart></td>
             </tr> 
         </table>
-<table style="float:left;margin-top:100px;">
-    <tr>
-        <td id="cool">
             <table>
+                <tr>
+                    <th>
+                        <h1 ng-bind="title" colspan="2">
+                            
+                        </h1>
+                    </th>
+                </tr>
                 <tr>
                     <td id="cool1" style="-webkit-column-width: 350px;">
                         <legend-chart data="bigLegend"></legend-chart>
@@ -102,9 +105,6 @@
                     </td>
                 </tr>
             </table>
-        </td>
-    </tr>
-</table> 
 <table style="margin-left:300px">
     <tr>
         <td ng-click="displayAge()" style="-webkit-column-width: 350px; -webkit-column-height: 300px"><donut-chart w="200" h="200" data="donutDataAge"></donut-chart></td>

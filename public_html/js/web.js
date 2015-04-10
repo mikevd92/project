@@ -751,15 +751,19 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
         if ((option === "age") || (typeof option === 'undefined')) {
             $scope.bigData = $scope.donutDataAge;
             $scope.bigLegend = $scope.legendDataAge;
+            
         } else if (option === "foreigner") {
             $scope.bigData = $scope.donutDataForeigner;
             $scope.bigLegend = $scope.legendDataForeigner;
+             
         } else if (option === "house") {
             $scope.bigData = $scope.donutDataHouse;
             $scope.bigLegend = $scope.legendDataHouse;
+             
         } else if (option === "marital") {
             $scope.bigData = $scope.donutDataMarital;
             $scope.bigLegend = $scope.legendDataMarital;
+             
         }
 
     }
@@ -775,24 +779,28 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
         $scope.bigData = $scope.donutDataAge;
         $scope.bigLegend = $scope.legendDataAge;
         option = "age";  
+        $scope.title = "Age statistics";
     };
     $scope.displayForeigner = function () {
 
         $scope.bigData = $scope.donutDataForeigner;
         $scope.bigLegend = $scope.legendDataForeigner;
         option = "foreigner";
+        $scope.title = "Foreigner statistics";
     };
     $scope.displayHouse = function () {
 
         $scope.bigData = $scope.donutDataHouse;
         $scope.bigLegend = $scope.legendDataHouse;
         option = "house";
+        $scope.title = "House statistics";
     }
     $scope.displayMarital = function () {
 
         $scope.bigData = $scope.donutDataMarital;
         $scope.bigLegend = $scope.legendDataMarital;
         option = "marital";
+        $scope.title = "Marital statistics";
     }
     $scope.selectAgeGroups = function () {
 
@@ -1028,7 +1036,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
         $scope.bigData = $scope.donutDataAge;
         $scope.bigLegend = $scope.legendDataAge;
         $scope.option = $scope.options[1];
-
+        
         $scope.optionScatter1 = $scope.optionsScatter[0];
         $scope.optionScatter2 = $scope.optionsScatter[0];
 
@@ -1036,7 +1044,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
             scatter: $scope.optionScatter1.array.map(function (node, i) {
                 return {x: node, y: $scope.optionScatter2.array[i], STED: stedNameData[i][1], Naam: stedNameData[i][0]};
             })};
-
+        $scope.title = "Age statistics";
         $scope.$apply();
 
     });
