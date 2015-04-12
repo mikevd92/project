@@ -466,7 +466,7 @@ var scatter = function scatterLink()
 						    .attr("x", width)
 						    .attr("y", -6)
 						    .style("text-anchor", "end")
-						    .text("number of " + variableX);
+						    .text(variableX);
 
 				var xGroup=svg.select('.x_axis');		    	
 				var xLabel=xGroup.select('.label');
@@ -480,7 +480,7 @@ var scatter = function scatterLink()
 						    .attr("y", 6)
 						    .attr("dy", ".71em")
 						    .style("text-anchor", "end")
-						    .text("number of " + variableY);
+						    .text(variableY);
 
 				var yGroup=svg.select('.y_axis');
 				var yLabel=yGroup.select('.label');
@@ -509,8 +509,8 @@ var scatter = function scatterLink()
 					  .orient("left");
 					 xGroup.call(xAxis);
 					 yGroup.call(yAxis);
-					 xLabel.text("number of " + variableX);
-					 yLabel.text("number of " + variableY);
+					 xLabel.text(variableX);
+					 yLabel.text(variableY);
 
 					circles=circles.data(data.scatter);
 					//console.log("in scatter");
@@ -541,7 +541,7 @@ var scatter = function scatterLink()
 							    })
 							  //鼠标放上去的效果
 							  .on("mouseover", function(d, i) {
-							    var str = d.key + " :Number of " + variableX +" is "+ d.x.toFixed(2) +" Number of " + variableY+ " is "+ d.y.toFixed(2);
+							    var str = d.key + variableX +" is "+ d.x.toFixed(2) +" " + variableY+ " is "+ d.y.toFixed(2);
 							    d3.select(".information").text(str);
 							    d3.select(this)
 							      .style("fill", "red")
@@ -580,7 +580,7 @@ var scatter = function scatterLink()
 							    })
 							  //鼠标放上去的效果
 							  .on("mouseover", function(d, i) {
-							    var str = d.key + " :Number of " + variableX +" is "+ d.x.toFixed(2) +" Number of " + variableY+ " is "+ d.y.toFixed(2);
+							    var str = d.key + " " + variableX +" is "+ d.x.toFixed(2) +" " + variableY+ " is "+ d.y.toFixed(2);
 							    d3.select(".information").text(str);
 							    d3.select(this)
 							      .style("fill", "red")
