@@ -820,7 +820,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
             }
         }
     }
-
+   
     myFactory.await(function (err, mapData, data) {
         if (err) {
             throw err;
