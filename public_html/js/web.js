@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', []);
 
 /*
  $compile scope worth mentioning and pretty cool
-  Big test for commit
+ Big test for commit
  */
 
 // donut link function
@@ -109,7 +109,7 @@ var link = function donutLink()
                                 x = c[0],
                                 y = c[1],
                                 // pythagorean theorem for hypotenuse
-                                h = Math.sqrt(x * (x+ 10) + y *y);
+                                h = Math.sqrt(x * (x + 10) + y * y);
                         return "translate(" + (x / h * labelr) + ',' +
                                 (y / h * labelr) + ")";
                     })
@@ -140,7 +140,7 @@ var legend = function legendLink()
         height = 400;
 
         var color = d3.scale.category20();
-        var svg = d3.select(el[0]).append('svg').attr("id","legend");
+        var svg = d3.select(el[0]).append('svg').attr("id", "legend");
 
         // group for rects
         var rect_group = svg.append('g')
@@ -409,242 +409,248 @@ var map = function mapLink()
 }
 var scatter = function scatterLink()
 {
-			 function link(scope, el, attr)
-			{
-		
-				var margin = {
-				  top: 20,
-				  right: 60,//20
-				  bottom: 30,
-				  left: 90
-				},
-				  width = 2050 - margin.left - margin.right,
-				  height = 1000 - margin.top - margin.bottom;
+    function link(scope, el, attr)
+    {
 
-				var variableX = "X";
-				var variableY = "Y";
+        var margin = {
+            top: 20,
+            right: 60, //20
+            bottom: 30,
+            left: 90
+        },
+        width = 2050 - margin.left - margin.right,
+                height = 1000 - margin.top - margin.bottom;
 
-				//x scale
-				var x = d3.scale.linear()
-				  .range([0, width]);
-				//y scale
-				var y = d3.scale.linear()
-				  .range([height, 0]);
-				//有关颜色
-				var color = d3.scale.category10();
-				//fisheye 
-				// var fisheye = d3.fisheye.circular().radius(120);
-				//axi
-				var xAxis = d3.svg.axis()
-				  .scale(x)
-				  .orient("bottom");
-				//axi
-				var yAxis = d3.svg.axis()
-				  .scale(y)
-				  .orient("left");
-				//new a svg
-				var svg = d3.select(el[0]).append("svg")
-				  .attr("width", width + margin.left + margin.right)
-				  .attr("height", height + margin.top + margin.bottom)
-				  .append("g")
-				  .attr("class","main")
-				  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var variableX = "X";
+        var variableY = "Y";
 
-				svg.append("rect")
-						  .attr('fill','none')
-						  .attr('pointer-events', 'all')
-						  .attr("width", width + margin.left + margin.right)
-						  .attr("height", height + margin.top + margin.bottom)
-						  .attr("class","chartArea");
-			    
-				svg.append("g")
-						    .attr("class", "x_axis")
-						    .attr("transform", "translate(0," + height + ")")
-						    .call(xAxis)
-						    .append("text")
-						    .attr("class", "label")
-						    .attr("x", width)
-						    .attr("y", -6)
-						    .style("text-anchor", "end")
-						    .text(variableX);
+        //x scale
+        var x = d3.scale.linear()
+                .range([0, width]);
+        //y scale
+        var y = d3.scale.linear()
+                .range([height, 0]);
+        //有关颜色
+        var color = d3.scale.category10();
+        //fisheye 
+        // var fisheye = d3.fisheye.circular().radius(120);
+        //axi
+        var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+        //axi
+        var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+        //new a svg
+        var svg = d3.select(el[0]).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("class", "main")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-				var xGroup=svg.select('.x_axis');		    	
-				var xLabel=xGroup.select('.label');
+        svg.append("rect")
+                .attr('fill', 'none')
+                .attr('pointer-events', 'all')
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("class", "chartArea");
 
-				svg.append("g")
-						    .attr("class", "y_axis")
-						    .call(yAxis)
-						    .append("text")
-						    .attr("class", "label")
-						    .attr("transform", "rotate(-90)")
-						    .attr("y", 6)
-						    .attr("dy", ".71em")
-						    .style("text-anchor", "end")
-						    .text(variableY);
+        svg.append("g")
+                .attr("class", "x_axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+                .append("text")
+                .attr("class", "label")
+                .attr("x", width)
+                .attr("y", -6)
+                .style("text-anchor", "end")
+                .text(variableX);
 
-				var yGroup=svg.select('.y_axis');
-				var yLabel=yGroup.select('.label');
+        var xGroup = svg.select('.x_axis');
+        var xLabel = xGroup.select('.label');
 
-				var fisheye = d3.fisheye.circular().radius(200).distortion(7);
-				var chartArea=d3.select(".chartArea");	
-			
-				var circles = d3.select(".main").selectAll("circle");
+        svg.append("g")
+                .attr("class", "y_axis")
+                .call(yAxis)
+                .append("text")
+                .attr("class", "label")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text(variableY);
 
-				scope.$watch('data', function(data){
-				
-				  	if(!data){ return; }
-				  	
-				  	variableX = data.xName;
-					variableY = data.yName;
+        var yGroup = svg.select('.y_axis');
+        var yLabel = yGroup.select('.label');
 
-					x.domain(d3.extent(data.scatter, function(d) { return d.x; })).nice();
-					// console.log(d3.extent(data,function(d){ return d.OPP_TOT;}));
-					y.domain(d3.extent(data.scatter, function(d) { return d.y; })).nice();
-					var xAxis = d3.svg.axis()
-					  .scale(x)
-					  .orient("bottom");
-					//axis
-					var yAxis = d3.svg.axis()
-					  .scale(y)
-					  .orient("left");
-					 xGroup.call(xAxis);
-					 yGroup.call(yAxis);
-					 xLabel.text(variableX);
-					 yLabel.text(variableY);
+        var fisheye = d3.fisheye.circular().radius(200).distortion(7);
+        var chartArea = d3.select(".chartArea");
 
-					circles=circles.data(data.scatter);
-					//console.log("in scatter");
-					
-							circles
-							    .enter()
-							    .append("circle")
-							    .attr("r", function(d) {
-							      var rv = ((-1) * (d.STED) + 5)*2;
-							      return rv;
-							    })
-							    .datum(function(d) {
-							      return {
-                                                                STED: d.STED,
-							        key: d.Naam,
-							        x: x(d.x),
-							        y: y(d.y)
-							      }
-							    })
-							    .attr("cx", function(d) {
-							      return d.x
-							    })
-							    .attr("cy", function(d) {
-							      return d.y
-							    })
-							    .style("fill", function(d) {
-							      return color(d.STED);
-							    })
-							  //鼠标放上去的效果
-							  .on("mouseover", function(d, i) {
-							    var str = d.key + variableX +" is "+ d.x.toFixed(2) +" " + variableY+ " is "+ d.y.toFixed(2);
-							    d3.select(".information").text(str);
-							    d3.select(this)
-							      .style("fill", "red")
-							      .style("opacity", 1)
-							  })
-							  //鼠标移开的效果
-							  .on("mouseout", function(d, i) {
-							    d3.select(this)
-							      .style("fill", function(d) {
-							        return color(d.species);
-							      })
-							      .style("opacity", 0.1)
-							  });
-						  //console.log(circles);
-						  circles=circles.data(data.scatter);
-						  circles.attr("r", function(d) {
-							      var rv = ((-1) * (d.STED) + 5)*2;
-							      return rv;
-							    })
-							    .datum(function(d) {
-							      return {
-                                                                STED: d.STED,
-							        key: d.Naam,
-							        x: x(d.x),
-							        y: y(d.y)
-							      }
-							    })
-							    .attr("cx", function(d) {
-							      return d.x
-							    })
-							    .attr("cy", function(d) {
-							      return d.y
-							    })
-							    .style("fill", function(d) {
-							      return color(d.STED);
-							    })
-							  //鼠标放上去的效果
-							  .on("mouseover", function(d, i) {
-							    var str = d.key + " " + variableX +" is "+ d.x.toFixed(2) +" " + variableY+ " is "+ d.y.toFixed(2);
-							    d3.select(".information").text(str);
-							    d3.select(this)
-							      .style("fill", "red")
-							      .style("opacity", 1)
-							  })
-							  //鼠标移开的效果
-							  .on("mouseout", function(d, i) {
-							    d3.select(this)
-							      .style("fill", function(d) {
-							        return color(d.STED);
-							      })
-							      .style("opacity", 0.1)
-							  });
+        var circles = d3.select(".main").selectAll("circle");
 
-						  //     var fisheyeCircle = svg.selectAll("circle")
-						  //     .data(data)
-						  //     .enter()
-						  // // fish eye
-						  chartArea.on("mousemove", function() {
+        scope.$watch('data', function (data) {
 
-						    fisheye.focus(d3.mouse(this));
+            if (!data) {
+                return;
+            }
 
-						    circles.each(function(d) {
-						      d.fisheye = fisheye(d);
-						    })
-						      .attr("cx", function(d) {
-						        return d.fisheye.x;
-						      })
-						      .attr("cy", function(d) {
-						        return d.fisheye.y;
-						      });
+            variableX = data.xName;
+            variableY = data.yName;
 
-						  });
-						  //lengend means 图示！
-						  var legend = svg.selectAll(".legend")
-										.data(color.domain())
-										.enter().append("g")
-										.attr("class", "legend")
-										.attr("transform", function(d, i) {
-										      return "translate(0," + i * 20 + ")";
-										});
+            x.domain(d3.extent(data.scatter, function (d) {
+                return d.x;
+            })).nice();
+            // console.log(d3.extent(data,function(d){ return d.OPP_TOT;}));
+            y.domain(d3.extent(data.scatter, function (d) {
+                return d.y;
+            })).nice();
+            var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");
+            //axis
+            var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left");
+            xGroup.call(xAxis);
+            yGroup.call(yAxis);
+            xLabel.text(variableX);
+            yLabel.text(variableY);
 
-										  // legend.append("rect")
-										  //     .attr("x", width - 18)
-										  //     .attr("width", 18)
-										  //     .attr("height", 18)
-										  //     .style("fill", color);
+            circles = circles.data(data.scatter);
+            //console.log("in scatter");
 
-						  legend.append("text")
-										.attr("x", width - 24)
-										.attr("y", 9)
-										.attr("dy", ".35em")
-										.style("text-anchor", "end")
-										.text("")
-										.classed("information", true);				
-												  
-						 			},true);
-  }
-  return {
-    link: link,
-    restrict: 'E',
-    scope: { data: '=' }
-  };
-} 
+            circles
+                    .enter()
+                    .append("circle")
+                    .attr("r", function (d) {
+                        var rv = ((-1) * (d.STED) + 5) * 2;
+                        return rv;
+                    })
+                    .datum(function (d) {
+                        return {
+                            STED: d.STED,
+                            key: d.Naam,
+                            x: x(d.x),
+                            y: y(d.y)
+                        }
+                    })
+                    .attr("cx", function (d) {
+                        return d.x
+                    })
+                    .attr("cy", function (d) {
+                        return d.y
+                    })
+                    .style("fill", function (d) {
+                        return color(d.STED);
+                    })
+                    //鼠标放上去的效果
+                    .on("mouseover", function (d, i) {
+                        var str = d.key + variableX + " is " + d.x.toFixed(2) + " " + variableY + " is " + d.y.toFixed(2);
+                        d3.select(".information").text(str);
+                        d3.select(this)
+                                .style("fill", "red")
+                                .style("opacity", 1)
+                    })
+                    //鼠标移开的效果
+                    .on("mouseout", function (d, i) {
+                        d3.select(this)
+                                .style("fill", function (d) {
+                                    return color(d.species);
+                                })
+                                .style("opacity", 0.1)
+                    });
+            //console.log(circles);
+            circles = circles.data(data.scatter);
+            circles.attr("r", function (d) {
+                var rv = ((-1) * (d.STED) + 5) * 2;
+                return rv;
+            })
+                    .datum(function (d) {
+                        return {
+                            STED: d.STED,
+                            key: d.Naam,
+                            x: x(d.x),
+                            y: y(d.y)
+                        }
+                    })
+                    .attr("cx", function (d) {
+                        return d.x
+                    })
+                    .attr("cy", function (d) {
+                        return d.y
+                    })
+                    .style("fill", function (d) {
+                        return color(d.STED);
+                    })
+                    //鼠标放上去的效果
+                    .on("mouseover", function (d, i) {
+                        var str = d.key + " " + variableX + " is " + d.x.toFixed(2) + " " + variableY + " is " + d.y.toFixed(2);
+                        d3.select(".information").text(str);
+                        d3.select(this)
+                                .style("fill", "red")
+                                .style("opacity", 1)
+                    })
+                    //鼠标移开的效果
+                    .on("mouseout", function (d, i) {
+                        d3.select(this)
+                                .style("fill", function (d) {
+                                    return color(d.STED);
+                                })
+                                .style("opacity", 0.1)
+                    });
+
+            //     var fisheyeCircle = svg.selectAll("circle")
+            //     .data(data)
+            //     .enter()
+            // // fish eye
+            chartArea.on("mousemove", function () {
+
+                fisheye.focus(d3.mouse(this));
+
+                circles.each(function (d) {
+                    d.fisheye = fisheye(d);
+                })
+                        .attr("cx", function (d) {
+                            return d.fisheye.x;
+                        })
+                        .attr("cy", function (d) {
+                            return d.fisheye.y;
+                        });
+
+            });
+            //lengend means 图示！
+            var legend = svg.selectAll(".legend")
+                    .data(color.domain())
+                    .enter().append("g")
+                    .attr("class", "legend")
+                    .attr("transform", function (d, i) {
+                        return "translate(0," + i * 20 + ")";
+                    });
+
+            // legend.append("rect")
+            //     .attr("x", width - 18)
+            //     .attr("width", 18)
+            //     .attr("height", 18)
+            //     .style("fill", color);
+
+            legend.append("text")
+                    .attr("x", width - 24)
+                    .attr("y", 9)
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "end")
+                    .text("")
+                    .classed("information", true);
+
+        }, true);
+    }
+    return {
+        link: link,
+        restrict: 'E',
+        scope: {data: '='}
+    };
+}
 
 //d3 directives
 myApp.directive('donutChart', link);
@@ -746,19 +752,19 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
         if ((option === "age") || (typeof option === 'undefined')) {
             $scope.bigData = $scope.donutDataAge;
             $scope.bigLegend = $scope.legendDataAge;
-            
+
         } else if (option === "foreigner") {
             $scope.bigData = $scope.donutDataForeigner;
             $scope.bigLegend = $scope.legendDataForeigner;
-             
+
         } else if (option === "house") {
             $scope.bigData = $scope.donutDataHouse;
             $scope.bigLegend = $scope.legendDataHouse;
-             
+
         } else if (option === "marital") {
             $scope.bigData = $scope.donutDataMarital;
             $scope.bigLegend = $scope.legendDataMarital;
-             
+
         }
 
     }
@@ -773,7 +779,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
 
         $scope.bigData = $scope.donutDataAge;
         $scope.bigLegend = $scope.legendDataAge;
-        option = "age";  
+        option = "age";
         $scope.title = "Age statistics";
     };
     $scope.displayForeigner = function () {
@@ -815,7 +821,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
             }
         }
     }
-   
+
     myFactory.await(function (err, mapData, data) {
         if (err) {
             throw err;
@@ -1031,7 +1037,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
         $scope.bigData = $scope.donutDataAge;
         $scope.bigLegend = $scope.legendDataAge;
         $scope.option = $scope.options[1];
-        
+
         $scope.optionScatter1 = $scope.optionsScatter[0];
         $scope.optionScatter2 = $scope.optionsScatter[0];
 
