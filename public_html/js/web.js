@@ -419,7 +419,7 @@ var scatter = function scatterLink()
             bottom: 30,
             left: 90
         },
-        width = 2050 - margin.left - margin.right,
+        width = 1025 - margin.left - margin.right,
                 height = 1000 - margin.top - margin.bottom;
 
         var variableX = "X";
@@ -531,6 +531,7 @@ var scatter = function scatterLink()
                     })
                     .datum(function (d) {
                         return {
+                            STED: d.STED,
                             key: d.Naam,
                             x: x(d.x),
                             y: y(d.y)
@@ -543,7 +544,7 @@ var scatter = function scatterLink()
                         return d.y
                     })
                     .style("fill", function (d) {
-                        return color(d.species);
+                        return color(d.STED);
                     })
                     //鼠标放上去的效果
                     .on("mouseover", function (d, i) {
@@ -557,7 +558,7 @@ var scatter = function scatterLink()
                     .on("mouseout", function (d, i) {
                         d3.select(this)
                                 .style("fill", function (d) {
-                                    return color(d.species);
+                                    return color(d.STED);
                                 })
                                 .style("opacity", 0.1)
                     });
@@ -581,7 +582,7 @@ var scatter = function scatterLink()
                         return d.y
                     })
                     .style("fill", function (d) {
-                        return color(d.species);
+                        return color(d.STED);
                     })
                     //鼠标放上去的效果
                     .on("mouseover", function (d, i) {
@@ -595,7 +596,7 @@ var scatter = function scatterLink()
                     .on("mouseout", function (d, i) {
                         d3.select(this)
                                 .style("fill", function (d) {
-                                    return color(d.species);
+                                    return color(d.STED);
                                 })
                                 .style("opacity", 0.1)
                     });
