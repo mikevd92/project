@@ -225,7 +225,7 @@ var stack = function stackLink()
 {
     function link(scope, el, attr)
     {
-         var _width = 900, _height = 450,
+        var _width = 900, _height = 450,
             _margins = {top: 30, left: 30, right: 30, bottom: 30},
             _x, _y,
             _data = [],
@@ -233,18 +233,129 @@ var stack = function stackLink()
             _svg,
             _bodyG,
             _line;
+        var padding = 5;
+        _svg = d3.select("body").append("svg")
+                    .attr("height", _height)
+                    .attr("width", _width);
+        var axesG = svg.append("g")
+                .attr("class", "axes");
+        var xAxis = d3.svg.axis()
+                .scale(_x.range([0, _width - _margins.left - _margins.right]))
+                .orient("bottom");
+        var yAxis = d3.svg.axis()
+                .scale(_y.range([_height - _margins.top - _margins.bottom, 0]))
+                .orient("left");
+        
+        axesG.append("g")
+                .attr("class", "x axis")
+                .attr("transform", function () {
+                    return "translate(" + _margins.left + "," + _height - _margins.bottom + ")";
+                })
+                .call(xAxis);
 
+        d3.selectAll("g.x g.tick")
+                .append("line")
+                .classed("grid-line", true)
+                .attr("x1", 0)
+                .attr("y1", 0)
+                .attr("x2", 0)
+                .attr("y2", -(_height - _margins.top - _margins.bottom));
+       
+        
+
+
+        d3.selectAll("g.y g.tick")
+                .append("line")
+                .classed("grid-line", true)
+                .attr("x1", 0)
+                .attr("y1", 0)
+                .attr("x2", _width - _margins.left - _margins.right)
+                .attr("y2", 0);
+
+        svg.append("defs")
+                .append("clipPath")
+                .attr("id", "body-clip")
+                .append("rect")
+                .attr("x", 0 - padding)
+                .attr("y", 0)
+                .attr("width", _width - _margins.left - _margins.right + 2 * padding)
+                .attr("height", _height - _margins.top - _margins.bottom);
+         
+        _bodyG = svg.append("g")
+                    .attr("class", "body")
+                    .attr("transform", "translate("
+                            + xStart() + ","
+                            + yEnd() + ")")
+                    .attr("clip-path", "url(#body-clip)");
+
+        var stack = d3.layout.stack()
+                .offset('expand');
+        
+        
+        
         scope.$watch('data', function (data) {
             if (!data) {
                 return;
             }
+            
+        
 
+        _bodyG.selectAll("path.line")
+                        .data(data)
+                .enter()
+                .append("path")
+                .style("stroke", function (d, i) {
+                    return _colors(i);
+                })
+                .attr("class", "line");
+        
+        _line = d3.svg.line()
+                .x(function (d) {
+                    return _x(d.x);
+                })
+                .y(function (d) {
+                    return _y(d.y + d.y0);
+                });
+
+
+        _bodyG.selectAll("path.line")
+                    .data(data)
+                .transition()
+                .attr("d", function (d) {
+                    return _line(d);
+                });
+       
+        var area = d3.svg.area()
+                .x(function (d) {
+                    return _x(d.x);
+                })
+                .y0(function(d){return _y(d.y0);})
+                .y1(function (d) {
+                    return _y(d.y + d.y0);
+                });
+
+        _bodyG.selectAll("path.area")
+                    .data(data)
+                .enter()
+                .append("path")
+                .style("fill", function (d, i) {
+                    return _colors(i);
+                })
+                .attr("class", "area");
+
+        _bodyG.selectAll("path.area")
+                    .data(data)
+                .transition()
+                .attr("d", function (d) {
+                    return area(d);
+                });                 
         },
                 true);
+                
     }
     return {
         link: link,
-        restrict: 'E',
+        restrict: 'AE',
         scope: {data: '='}
     };
 }
