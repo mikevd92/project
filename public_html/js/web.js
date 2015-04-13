@@ -221,7 +221,33 @@ var legend = function legendLink()
         scope: {data: '='}
     };
 }
+var stack = function stackLink()
+{
+    function link(scope, el, attr)
+    {
+         var _width = 900, _height = 450,
+            _margins = {top: 30, left: 30, right: 30, bottom: 30},
+            _x, _y,
+            _data = [],
+            _colors = d3.scale.category10(),
+            _svg,
+            _bodyG,
+            _line;
 
+        scope.$watch('data', function (data) {
+            if (!data) {
+                return;
+            }
+
+        },
+                true);
+    }
+    return {
+        link: link,
+        restrict: 'E',
+        scope: {data: '='}
+    };
+}
 // map link function
 
 var map = function mapLink()
