@@ -221,19 +221,6 @@ var legend = function legendLink()
         scope: {data: '='}
     };
 }
-var stack = function stackLink()
-{
-    function link(scope, el, attr)
-    {
-        
-                
-    }
-    return {
-        link: link,
-        restrict: 'AE',
-        scope: {data: '='}
-    };
-}
 // map link function
 
 var map = function mapLink()
