@@ -541,6 +541,7 @@ var scatter = function scatterLink()
                     .attr("cy", function (d) {
                         return d.y
                     })
+                    .style("opacity",1)
                     .style("fill", function (d) {
                         return color(d.STED);
                     })
@@ -580,6 +581,7 @@ var scatter = function scatterLink()
                     .attr("cy", function (d) {
                         return d.y
                     })
+                    .style("opacity",1)
                     .style("fill", function (d) {
                         return color(d.STED);
                     })
