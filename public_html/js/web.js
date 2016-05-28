@@ -906,7 +906,7 @@ myApp.controller('MainCtrl', function ($scope, myFactory) {
                     return {code: node.Code, data: node.OPP_WATER};
                 })}
         ];
-        console.log($scope.optionsMap);
+        
         stedNameData = data.map(function (node) {
             return [node.Naam, parseInt(node.STED)];
         });
