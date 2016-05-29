@@ -519,7 +519,7 @@ var scatter = function scatterLink()
 
             circles = circles.data(data.scatter);
             //console.log("in scatter");
-
+            d3.select(".information").text("");
             circles
                     .enter()
                     .append("circle")
